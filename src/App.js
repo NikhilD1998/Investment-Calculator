@@ -4,10 +4,13 @@ import ResultTable from "./components/ResultTable/ResultTable";
 import UserInput from "./components/UserInput/UserInput";
 
 function App() {
-  const [result, setResult] = useState[null];
+  const [userInput, setUserInput] = useState(null);
   const calculateHandler = (userInput) => {
-    const yearlyData = [];
+    setUserInput(userInput);
+  };
+  const yearlyData = [];
 
+  if (userInput) {
     let currentSavings = +userInput["current-savings"];
     const yearlyContribution = +userInput["yearly-contribution"];
     const expectedReturn = +userInput["expected-return"] / 100;
@@ -23,15 +26,19 @@ function App() {
         yearlyContribution: yearlyContribution,
       });
     }
-  };
-
-  setResult(yearlyData);
+  }
 
   return (
     <div>
       <Header />
       <UserInput onCalculate={calculateHandler} />
-      <ResultTable />
+      {!userInput && <p>No investment Calculate yet</p>}
+      {userInput && (
+        <ResultTable
+          data={yearlyData}
+          initialInvestment={userInput["current-savings"]}
+        />
+      )}
     </div>
   );
 }
