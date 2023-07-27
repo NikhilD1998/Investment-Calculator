@@ -1,8 +1,10 @@
+import { useState } from "react";
 import Header from "./components/Header/Header";
 import ResultTable from "./components/ResultTable/ResultTable";
 import UserInput from "./components/UserInput/UserInput";
 
 function App() {
+  const [result, setResult] = useState[null];
   const calculateHandler = (userInput) => {
     const yearlyData = [];
 
@@ -23,10 +25,12 @@ function App() {
     }
   };
 
+  setResult(yearlyData);
+
   return (
     <div>
       <Header />
-      <UserInput />
+      <UserInput onCalculate={calculateHandler} />
       <ResultTable />
     </div>
   );
